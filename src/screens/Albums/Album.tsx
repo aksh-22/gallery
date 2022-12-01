@@ -1,5 +1,5 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {FlatList, Image, TouchableOpacity, View} from 'react-native';
 import {ComponentProps} from 'src/routes/types/navigation';
 import AlbumStyle from './Album.style';
@@ -7,6 +7,13 @@ import AlbumStyle from './Album.style';
 const Album = ({route, navigation}: ComponentProps) => {
   const [photos, setPhotos] = useState([]);
   const [pageInfo, setPageInfo] = useState(null);
+
+  const goToIndex = index => {
+    console.log('index', index);
+    flatListRef.current.scrollToIndex({index: index > 3 ? index / 3 : 1});
+  };
+
+  const flatListRef = useRef(null);
 
   useEffect(() => {
     CameraRoll.getPhotos({
@@ -26,9 +33,9 @@ const Album = ({route, navigation}: ComponentProps) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('Image', {
-              uri: item.node.image.uri,
               index,
               photos,
+              goToIndex,
             })
           }>
           <Image style={AlbumStyle.image} source={{uri: item.node.image.uri}} />
@@ -54,6 +61,7 @@ const Album = ({route, navigation}: ComponentProps) => {
   return (
     <View style={AlbumStyle.container}>
       <FlatList
+        ref={flatListRef}
         onEndReached={onEndReached}
         numColumns={3}
         data={photos}
