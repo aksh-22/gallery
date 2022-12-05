@@ -1,8 +1,9 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import React, {useEffect, useRef, useState} from 'react';
-import {FlatList, Image, TouchableOpacity, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {ComponentProps} from 'src/routes/types/navigation';
 import AlbumStyle from './Album.style';
+import AlbumBox from './AlbumBox';
 
 const Album = ({route, navigation}: ComponentProps) => {
   const [photos, setPhotos] = useState([]);
@@ -25,22 +26,20 @@ const Album = ({route, navigation}: ComponentProps) => {
       setPhotos(res.edges);
       setPageInfo(res.page_info);
     });
-  }, []);
+  }, [route.params.title]);
 
   const renderItem = ({item, index}) => {
     return (
-      <>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Image', {
-              index,
-              photos,
-              goToIndex,
-            })
-          }>
-          <Image style={AlbumStyle.image} source={{uri: item.node.image.uri}} />
-        </TouchableOpacity>
-      </>
+      <AlbumBox
+        onPress={() =>
+          navigation.navigate('Image', {
+            index,
+            photos,
+            goToIndex,
+          })
+        }
+        uri={item.node.image.uri}
+      />
     );
   };
 
