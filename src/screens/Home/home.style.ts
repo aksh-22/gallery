@@ -10,14 +10,13 @@ export default StyleSheet.create({
     backgroundColor: colors.defaultBlack,
   },
   text: {
-    color: '#000',
+    color: '#fff',
   },
   item: {
-    height: 100,
-    backgroundColor: colors.folder,
+    height: 120,
     justifyContent: 'center',
     alignItems: 'center',
-    width: SCREEN_WIDTH * 0.3 - 20,
+    width: SCREEN_WIDTH * 0.25,
     marginVertical: 10,
     padding: 5,
   },
@@ -26,5 +25,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 20,
+  },
+  folderImage: {
+    width: SCREEN_WIDTH * 0.25,
+    height: 100,
   },
 });

@@ -1,8 +1,10 @@
 import React from 'react';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import useGetAlbum from 'src/hooks/useGetAlbum';
 import {ComponentProps} from 'src/routes/types/navigation';
+import Folder from './Folder';
 import homeStyle from './home.style';
+// import {FlatGrid} from 'react-native-super-grid';
 
 const Home = ({navigation}: ComponentProps) => {
   const {album} = useGetAlbum();
@@ -11,14 +13,14 @@ const Home = ({navigation}: ComponentProps) => {
     <View style={homeStyle.container}>
       <ScrollView contentContainerStyle={homeStyle.contentContainerStyle}>
         {album.map((el, index) => (
-          <TouchableOpacity
+          <Folder
+            el={el}
             onPress={() => navigation.navigate('Album', el)}
             key={index}
-            style={homeStyle.item}>
-            <Text style={homeStyle.text}>{el.title}</Text>
-          </TouchableOpacity>
+          />
         ))}
       </ScrollView>
+      {/* <FlatGrid /> */}
     </View>
   );
 };
