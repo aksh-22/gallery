@@ -5,7 +5,6 @@ import {ComponentProps} from 'src/routes/types/navigation';
 import imageStyle from './image.style';
 
 const ImageComponent = ({route, navigation}: ComponentProps) => {
-  console.log('route', route.params);
   const {photos, index, goToIndex} = route.params;
 
   const images = photos.map(el => ({url: el.node.image.uri}));

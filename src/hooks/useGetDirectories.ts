@@ -16,7 +16,6 @@ const useGetDirectories = ({
   const getDirectory = async () => {
     await RNFS.readDir(path)
       .then(result => {
-        // console.log('RESULT', JSON.stringify(result, null, 2));
         const tempDirectories = [];
         const tempFiles = [];
         result.forEach((element: ReadDirItem) => {
@@ -30,7 +29,7 @@ const useGetDirectories = ({
         setFiles(tempFiles);
       })
       .catch(err => {
-        console.log(err.message, err.code);
+        console.error(err.message, err.code);
       });
   };
 

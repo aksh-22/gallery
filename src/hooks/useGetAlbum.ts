@@ -23,12 +23,9 @@ const useGetAlbum = () => {
       assetType: 'All',
     })
       .then(res => {
-        console.log('res.edges', JSON.stringify(res, null, 2));
         setAlbum(res);
       })
-      .catch(err => {
-        console.log('err', err);
-      });
+      .catch(err => {});
   }, []);
 
   return {album};

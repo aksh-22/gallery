@@ -10,8 +10,6 @@ const Files = ({navigation, route}: ComponentProps) => {
 
   const {directories, files} = useGetDirectories({path: params?.path});
 
-  console.log('files', files);
-  console.log('directories', directories);
   const onPress = (data: ReadDirItem) => {
     navigation.push('Files', data);
   };

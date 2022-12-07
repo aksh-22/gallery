@@ -7,12 +7,8 @@ type Props = {
 const useFilePicker = ({onSelect}: Props) => {
   const openFilePicker = () => {
     FilePickerManager.showFilePicker(null, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
-        console.log('User cancelled file picker');
       } else if (response.error) {
-        console.log('FilePickerManager Error: ', response.error);
       } else {
         onSelect(response);
       }

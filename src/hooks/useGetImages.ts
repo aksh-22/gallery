@@ -29,7 +29,6 @@ const useGetImages = ({title, first = 50}: Props) => {
       first: 50,
       groupTypes: 'All',
     }).then(res => {
-      console.log('res', JSON.stringify(res.page_info, null, 2));
       setPhotos(res.edges);
       setPageInfo(res.page_info);
     });

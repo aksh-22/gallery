@@ -9,11 +9,9 @@
 //   const getDirectory = async () => {
 //     await RNFS.readDir(RNFS.ExternalStorageDirectoryPath)
 //       .then(result => {
-//         console.log('RESULT', JSON.stringify(result, null, 2));
 //         setDirectories(result);
 //       })
 //       .catch(err => {
-//         console.log(err.message, err.code);
 //       });
 //   };
 
