@@ -12,6 +12,7 @@ const useGetDirectories = ({
 }: Props = {}) => {
   const [directories, setDirectories] = useState<Array<ReadDirItem>>([]);
   const [files, setFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getDirectory = async () => {
     await RNFS.readDir(path)
@@ -31,14 +32,18 @@ const useGetDirectories = ({
       .catch(err => {
         console.error(err.message, err.code);
       });
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    getDirectory();
+    setIsLoading(true);
+    setTimeout(() => {
+      getDirectory();
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return {directories, files};
+  return {directories, files, isLoading};
 };
 
 export default useGetDirectories;

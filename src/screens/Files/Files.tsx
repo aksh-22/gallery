@@ -1,6 +1,8 @@
 import React from 'react';
-import {ScrollView, Text, TouchableOpacity} from 'react-native';
+import {ScrollView} from 'react-native';
 import {ReadDirItem} from 'react-native-fs';
+import Folder from 'src/components/folder/Folder';
+import Loading from 'src/components/Loading/Loading';
 import useGetDirectories from 'src/hooks/useGetDirectories';
 import {ComponentProps} from 'src/routes/types/navigation';
 import filesStyle from './files.style';
@@ -8,7 +10,9 @@ import filesStyle from './files.style';
 const Files = ({navigation, route}: ComponentProps) => {
   const params: Readonly<ReadDirItem> = route.params;
 
-  const {directories, files} = useGetDirectories({path: params?.path});
+  const {directories, files, isLoading} = useGetDirectories({
+    path: params?.path,
+  });
 
   const onPress = (data: ReadDirItem) => {
     navigation.push('Files', data);
@@ -16,16 +20,13 @@ const Files = ({navigation, route}: ComponentProps) => {
 
   return (
     <ScrollView contentContainerStyle={filesStyle.container}>
-      {[...directories, ...files].map((el, index) => (
-        <TouchableOpacity
-          onPress={() => onPress(el)}
-          style={filesStyle.item}
-          key={index}>
-          <Text style={filesStyle.text} numberOfLines={1}>
-            {el.name}
-          </Text>
-        </TouchableOpacity>
-      ))}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        [...directories, ...files].map((el, index) => (
+          <Folder onPress={() => onPress(el)} key={index} el={el} />
+        ))
+      )}
     </ScrollView>
   );
 };
